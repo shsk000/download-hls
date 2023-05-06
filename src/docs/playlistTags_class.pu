@@ -1,0 +1,54 @@
+@startuml
+abstract class Tags {
+    Tag[] tag
+    Tag[] getTags()
+}
+abstract class Tag {
+    boolean valid()
+}
+
+class PlaylistTags {
+  Tags[] tags
+  boolean valid()
+}
+
+class VersionTag {
+  number versionNumber
+  number getVersionNumber() 
+}
+
+enum PlaylistType {
+  EVENT
+  VOD
+}
+class PlaylistTypeTag {
+  PlaylistType type
+  PlaylistType getType()
+}
+
+class SegmentFile {
+  String path
+  String getPath()
+}
+
+PlaylistTags *-- BasicTags
+BasicTags *-- VersionTag
+
+PlaylistTags *-- MediaSegmentTags
+MediaSegmentTags *-- KeyTag
+MediaSegmentTags *-- SegmentFile
+
+PlaylistTags *-- MediaPlaylistTags
+MediaPlaylistTags *-- PlaylistTypeTag
+MediaPlaylistTags *-- EndlistTypeTag
+
+Tag <|-- VersionTag
+Tag <|-- KeyTag
+Tag <|-- PlaylistTypeTag
+Tag <|-- EndlistTypeTag
+
+Tags <|-- BasicTags
+Tags <|-- MediaSegmentTags
+Tags <|-- MediaPlaylistTags
+
+@enduml
